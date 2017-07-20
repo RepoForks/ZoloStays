@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">ZoloStays</string>
+
+    <string name="phonehint">PHONE NUMBER</string>
+    <string name="passwordhint">PASSWORD</string>
+
+    <string name="buttonlogin">LOGIN</string>
+    <string name="textforgot">Forgot password?</string>
+    <string name="buttoncreate">CREATE ACCOUNT</string>
+
+    <string name="forgotpassword">FORGOT \n PASSWORD?</string>
+    <string name="enteremail">Please enter your registered Email address</string>
+    <string name="emailhint">YOUR EMAIL</string>
+
+    <string name="submit">SUBMIT</string>
+    <string name="register">REGISTER</string>
+    <string name="registerdesc">Please register with Zolo to continue</string>
+    
+    <string name="registerphone">YOUR PHONE NUMBER</string>
+    <string name="registeremail">YOUR EMAIL ID</string>
+    <string name="registername">YOUR NAME</string>
+    <string name="setpassword">SET PASSWORD</string>
 </resources>
