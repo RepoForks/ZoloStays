@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="user"
-            type="com.assessment.zolostays.model.User"/>
+            name="uvm"
+            type="com.assessment.zolostays.viewmodel.LoginViewModel"/>
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -60,7 +60,12 @@
                             android:maxLines="1"
                             android:hint="@string/phonehint"
                             android:textColor="@color/white"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp"
+                            android:text="@={uvm.phone}"
+                            app:validateEmpty="@{true}"
+                            app:validateMinLength="@{6}"
+                            app:validateMaxLength="@{10}"
+                            app:addTextChangedListener="@{uvm.phoneNumberWatcher}"/>
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -95,7 +100,12 @@
                             android:inputType="textPassword"
                             android:hint="@string/passwordhint"
                             android:textColor="@color/white"
-                            android:textSize="16sp"/>
+                            android:textSize="16sp"
+                            android:text="@={uvm.password}"
+                            app:validateEmpty="@{true}"
+                            app:validateMinLength="@{3}"
+                            app:validateMaxLength="@{8}"
+                            app:addTextChangedListener="@{uvm.passwordWatcher}"/>
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
                 <Button
@@ -109,11 +119,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:shadowColor="@color/black"
-                    android:shadowDx="3"
-                    android:shadowDy="1.5"
-                    android:shadowRadius="5"/>
+                    android:layout_marginEnd="10dp" />
                 <TextView
                     android:id="@+id/loginForgot"
                     android:layout_width="match_parent"
@@ -123,8 +129,10 @@
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     android:textSize="16sp"
+                    android:onClick="@{uvm.onForgotPasswordClicked}"
                     android:textColor="@color/white"/>
                 <Button
+                    android:id="@+id/buttonRegister"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimaryDark"
@@ -133,6 +141,7 @@
                     android:layout_marginStart="25dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginRight="10dp"
+                    android:onClick="@{uvm.onCreateAccountClicked}"
                     android:layout_marginEnd="10dp"
                     android:text="@string/buttoncreate"
                     android:textColor="@color/white"/>

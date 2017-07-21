@@ -20,4 +20,10 @@
     <string name="registeremail">YOUR EMAIL ID</string>
     <string name="registername">YOUR NAME</string>
     <string name="setpassword">SET PASSWORD</string>
+
+
+    <string name="phoneerror">Invalid Phone number</string>
+    <string name="emailerror">Invalid Email address</string>
+    <string name="nameerror">Invalid Name, must contain 2 characters</string>
+    <string name="passworderror">Invalid Password, must contain 3&#8211;8 chararcters</string>
 </resources>
