@@ -63,7 +63,6 @@
                             android:textSize="16sp"
                             android:text="@={uvm.phone}"
                             app:validateEmpty="@{true}"
-                            app:validateMinLength="@{6}"
                             app:validateMaxLength="@{10}"
                             app:addTextChangedListener="@{uvm.phoneNumberWatcher}"/>
                     </android.support.design.widget.TextInputLayout>
@@ -104,7 +103,7 @@
                             android:text="@={uvm.password}"
                             app:validateEmpty="@{true}"
                             app:validateMinLength="@{3}"
-                            app:validateMaxLength="@{8}"
+                            app:validateMaxLength="@{10}"
                             app:addTextChangedListener="@{uvm.passwordWatcher}"/>
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -117,6 +116,7 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginStart="25dp"
+                    android:enabled="@{uvm.loginButtonEnabled}"
                     android:layout_marginBottom="20dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginEnd="10dp" />

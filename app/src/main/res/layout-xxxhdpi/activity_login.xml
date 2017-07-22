@@ -108,7 +108,7 @@
                             android:text="@={uvm.password}"
                             app:validateEmpty="@{true}"
                             app:validateMinLength="@{3}"
-                            app:validateMaxLength="@{8}"
+                            app:validateMaxLength="@{10}"
                             app:addTextChangedListener="@{uvm.passwordWatcher}"/>
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -123,6 +123,7 @@
                     android:layout_marginStart="35dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginRight="15dp"
+
                     android:layout_marginEnd="15dp" />
                 <TextView
                     android:id="@+id/loginForgot"

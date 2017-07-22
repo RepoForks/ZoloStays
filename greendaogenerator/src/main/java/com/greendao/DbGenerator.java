@@ -28,11 +28,11 @@ public class DbGenerator {
     private static Entity addUserEntities(final Schema schema){
         Entity user = schema.addEntity("User");
         user.addIdProperty().primaryKey().autoincrement();
-        user.addIntProperty("user_id").notNull();
-        user.addStringProperty("name");
-        user.addStringProperty("email");
-        user.addStringProperty("phone");
-        user.addStringProperty("password");
+        user.addLongProperty("user_id").notNull();
+        user.addStringProperty("name").notNull();
+        user.addStringProperty("email").notNull().unique();
+        user.addStringProperty("phone").notNull().unique();
+        user.addStringProperty("password").notNull();
         return user;
     }
 }

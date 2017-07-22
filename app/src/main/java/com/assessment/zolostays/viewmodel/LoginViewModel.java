@@ -3,12 +3,15 @@ package com.assessment.zolostays.viewmodel;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.assessment.zolostays.BR;
 import com.assessment.zolostays.db.User;
 import com.assessment.zolostays.utils.SimpleTextWatcher;
 import com.assessment.zolostays.view.ForgotPasswordActivity;
@@ -24,7 +27,7 @@ public class LoginViewModel extends BaseObservable {
     public Context context;
     public ObservableField<String> phone = new ObservableField<>("");
     public ObservableField<String> password = new ObservableField<>("");
-
+    public boolean loginButtonEnabled = false;
     public LoginViewModel(Context context) {
         this.context = context;
     }
@@ -50,10 +53,16 @@ public class LoginViewModel extends BaseObservable {
     public TextWatcher getPhoneNumberWatcher(){
         return new SimpleTextWatcher() {
             @Override
-            public void afterTextChanged(Editable editable) {
-                if (!phone.get().equals(editable.toString())){
-                    phone.set(editable.toString());
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!phone.get().equals(charSequence.toString())){
+                    phone.set(charSequence.toString());
+
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                checkButtonEnabling();
             }
         };
     }
@@ -61,11 +70,36 @@ public class LoginViewModel extends BaseObservable {
     public TextWatcher getPasswordWatcher(){
         return new SimpleTextWatcher(){
             @Override
-            public void afterTextChanged(Editable editable) {
-                if (!password.get().equals(editable.toString())){
-                    password.set(editable.toString());
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (!password.get().equals(charSequence.toString())){
+                    password.set(charSequence.toString());
                 }
             }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                checkButtonEnabling();
+            }
         };
+    }
+
+    public void checkButtonEnabling(){
+        if (phone.get().length() == 10
+                && password.get().length() >= 3 && password.get().length() <= 10){
+            setLoginButtonEnabled(true);
+        }
+        else{
+            setLoginButtonEnabled(false);
+        }
+    }
+
+    @Bindable
+    public boolean getLoginButtonEnabled(){
+        return loginButtonEnabled;
+    }
+
+    public void setLoginButtonEnabled(boolean loginButtonEnabled) {
+        this.loginButtonEnabled = loginButtonEnabled;
+        notifyPropertyChanged(BR.loginButtonEnabled);
     }
 }
