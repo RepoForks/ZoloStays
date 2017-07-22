@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -13,7 +14,7 @@ import android.view.WindowManager;
 import com.assessment.zolostays.R;
 import com.assessment.zolostays.databinding.ActivityRegisterBinding;
 import com.assessment.zolostays.db.DatabaseManager;
-import com.assessment.zolostays.db.User;
+import com.assessment.zolostays.db.model.User;
 import com.assessment.zolostays.utils.Utility;
 import com.assessment.zolostays.viewmodel.RegistrationViewModel;
 
@@ -46,7 +47,16 @@ public class RegisterActivity extends AppCompatActivity{
                     user.setPassword(binding.registerPassword.getText().toString().trim());
                     String result = databaseManager.saveUser(user);
                     Utility.showSnackBar(RegisterActivity.this, view.getRootView(), result);
-                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    if (result.contains("Success")){
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(RegisterActivity.this,  LoginActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                            }
+                        }, 1700);
+                    }
                 }
                 else{
                     Utility.showSnackBar(RegisterActivity.this, view.getRootView(), "Error in filling form");

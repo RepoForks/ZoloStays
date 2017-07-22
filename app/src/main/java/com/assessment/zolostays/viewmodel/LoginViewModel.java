@@ -7,15 +7,11 @@ import android.databinding.Bindable;
 import android.databinding.ObservableField;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.assessment.zolostays.BR;
-import com.assessment.zolostays.db.User;
 import com.assessment.zolostays.utils.SimpleTextWatcher;
 import com.assessment.zolostays.view.ForgotPasswordActivity;
-import com.assessment.zolostays.view.LoginActivity;
 import com.assessment.zolostays.view.RegisterActivity;
 
 /**

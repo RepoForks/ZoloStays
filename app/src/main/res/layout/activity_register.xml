@@ -97,7 +97,7 @@
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             app:validateEmpty="@{true}"
-                            app:validateMaxLength="@{10}"
+                            app:validateMinLength="@{10}"
                             app:addTextChangedListener="@{register.phoneNumberWatcher}" />/>
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>

@@ -22,6 +22,20 @@
         <item name="colorControlActivated">@color/white</item>
         <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
+    <style name="AppTheme.Main" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="android:colorActivatedHighlight">@color/colorPrimary</item>
+        <item name="android:colorControlNormal">@color/colorPrimaryDark</item>
+        <item name="android:textColorHint">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="colorControlHighlight">@color/colorPrimary</item>
+    </style>
 
     <style name="AppTheme.Dialog" parent="Theme.AppCompat.Dialog.Alert">
         <item name="android:background">@android:color/white</item>

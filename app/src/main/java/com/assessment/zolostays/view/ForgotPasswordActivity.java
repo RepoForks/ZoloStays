@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -17,7 +16,7 @@ import android.view.WindowManager;
 import com.assessment.zolostays.R;
 import com.assessment.zolostays.databinding.ActivityForgotPasswordBinding;
 import com.assessment.zolostays.db.DatabaseManager;
-import com.assessment.zolostays.db.User;
+import com.assessment.zolostays.db.model.User;
 import com.assessment.zolostays.mail.MailSender;
 import com.assessment.zolostays.utils.Utility;
 import com.assessment.zolostays.viewmodel.RegistrationViewModel;
@@ -60,7 +59,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                     }
-                                }, 2000);
+                                }, 1700);
                             }
                             else
                                 Utility.showSnackBar(ForgotPasswordActivity.this, view.getRootView(), "Unknown error");

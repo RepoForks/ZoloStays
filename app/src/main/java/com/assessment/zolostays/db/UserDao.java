@@ -3,6 +3,8 @@ package com.assessment.zolostays.db;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
+import com.assessment.zolostays.db.model.User;
+
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.internal.DaoConfig;

@@ -1,4 +1,4 @@
-package com.assessment.zolostays.db;
+package com.assessment.zolostays.db.model;
 
 import org.greenrobot.greendao.annotation.*;
 

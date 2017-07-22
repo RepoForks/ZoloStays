@@ -1,6 +1,7 @@
 package com.assessment.zolostays.db;
 
 import com.assessment.zolostays.AppController;
+import com.assessment.zolostays.db.model.User;
 
 import java.util.List;
 
@@ -90,6 +91,25 @@ public class DatabaseManager {
         return "User already exists..!!";
     }
 
+    public boolean updateUser(User user, boolean mode){
+        List<User> users = getAllUsers();
+        if (users.size() > 0){
+            for (User u : users){
+                if (u.getUser_id()== user.getUser_id()){
+                    try {
+                        userDao.insertOrReplace(user);
+                        return true;
+                    }
+                    catch (Exception e){
+                        e.printStackTrace();
+                        return false;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public User getUser(String email){
         List<User> users = getAllUsers();
         if (users.size() > 0){
@@ -102,6 +122,17 @@ public class DatabaseManager {
         return null;
     }
 
+    public User getUserByPhone(String phone){
+        List<User> users = getAllUsers();
+        if (users.size() > 0){
+            for (User u : users){
+                if (u.getPhone().equals(phone)){
+                    return u;
+                }
+            }
+        }
+        return null;
+    }
 
 
 }

@@ -49,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                     if (databaseManager.loginCheck(binding.loginPhone.getText().toString().trim(),
                                         binding.loginPassword.getText().toString().trim())){
                         prefUtils.setIslogin(true);
+                        prefUtils.save(databaseManager.getUserByPhone(binding.loginPhone.getText().toString().trim()));
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);

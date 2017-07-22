@@ -67,8 +67,7 @@
                             android:textSize="16sp"
                             android:text="@={uvm.phone}"
                             app:validateEmpty="@{true}"
-                            app:validateMinLength="@{6}"
-                            app:validateMaxLength="@{10}"
+                            app:validateMinLength="@{10}"
                             app:addTextChangedListener="@{uvm.phoneNumberWatcher}"/>
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
