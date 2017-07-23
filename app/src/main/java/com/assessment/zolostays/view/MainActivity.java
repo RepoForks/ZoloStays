@@ -7,46 +7,80 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.assessment.zolostays.AppController;
 import com.assessment.zolostays.R;
 import com.assessment.zolostays.databinding.ActivityMainBinding;
 import com.assessment.zolostays.db.DatabaseManager;
-import com.assessment.zolostays.db.model.User;
+import com.assessment.zolostays.db.User;
+import com.assessment.zolostays.di.component.ActivityComponent;
+import com.assessment.zolostays.di.component.ApplicationComponent;
+import com.assessment.zolostays.di.component.DaggerActivityComponent;
+import com.assessment.zolostays.di.component.DaggerApplicationComponent;
+import com.assessment.zolostays.di.module.ActivityModule;
+import com.assessment.zolostays.di.module.ApplicationModule;
 import com.assessment.zolostays.utils.PrefUtils;
 import com.assessment.zolostays.utils.Utility;
 import com.assessment.zolostays.viewmodel.MainViewModel;
-import com.assessment.zolostays.viewmodel.RegistrationViewModel;
+
+import javax.inject.Inject;
 
 import br.com.ilhasoft.support.validation.Validator;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    @Inject
     PrefUtils utils;
+    @Inject
     DatabaseManager manager;
+
+    User u;
+
+    ActivityComponent activityComponent;
+
+    public ActivityComponent getComponent(){
+        if (activityComponent == null){
+            activityComponent = DaggerActivityComponent
+                    .builder()
+                    .activityModule(new ActivityModule(this))
+                    .applicationComponent(AppController.get(this).getComponent())
+                    .build();
+        }
+        return activityComponent;
+    }
+
+    ApplicationComponent applicationComponent;
+
+    public ApplicationComponent getApplicationComponent(){
+        if (applicationComponent == null){
+            applicationComponent = DaggerApplicationComponent
+                    .builder()
+                    .applicationModule(new ApplicationModule(activityComponent.getAppController()))
+                    .build();
+        }
+        return applicationComponent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        utils = new PrefUtils(this);
+        utils = getComponent().getPrefUtils();
         final User user = utils.getCurrentUser();
-        manager = new DatabaseManager();
+        manager = getApplicationComponent().getDatabaseManager();
         MainViewModel viewModel = new MainViewModel(this, user);
         final Validator validator = new Validator(binding);
         binding.setModel(viewModel);
         if(Build.VERSION.SDK_INT >= 21){
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
-        utils = new PrefUtils(this);
         changeStatusBarColor();
         setSupportActionBar(binding.toolbar);
         getSupportActionBar().setTitle("");
@@ -55,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (validator.validate()){
-                    User u = new User();
+                    u = new User();
                     u.setUser_id(user.getUser_id());
                     u.setName(binding.registerName.getText().toString().trim());
                     u.setEmail(binding.registerEmail.getText().toString().trim());

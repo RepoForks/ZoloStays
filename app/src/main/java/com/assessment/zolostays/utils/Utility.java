@@ -38,7 +38,8 @@ public class Utility {
     }
 
     public static int createID(){
-        return Integer.parseInt(new SimpleDateFormat("MddHHmmss",  Locale.US).format(new Date()));
+        Date date = new Date();
+        return Integer.parseInt(new SimpleDateFormat("MddHHmmss",  Locale.US).format(date));
     }
 
     public static void showDialogBox(final Context context, String title, String message, final String intent){

@@ -3,8 +3,6 @@ package com.assessment.zolostays.db;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteStatement;
 
-import com.assessment.zolostays.db.model.User;
-
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.Property;
 import org.greenrobot.greendao.internal.DaoConfig;
@@ -46,7 +44,7 @@ public class UserDao extends AbstractDao<User, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"USER\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"USER_ID\" INTEGER NOT NULL ," + // 1: user_id
+                "\"USER_ID\" INTEGER NOT NULL UNIQUE ," + // 1: user_id
                 "\"NAME\" TEXT NOT NULL ," + // 2: name
                 "\"EMAIL\" TEXT NOT NULL UNIQUE ," + // 3: email
                 "\"PHONE\" TEXT NOT NULL UNIQUE ," + // 4: phone

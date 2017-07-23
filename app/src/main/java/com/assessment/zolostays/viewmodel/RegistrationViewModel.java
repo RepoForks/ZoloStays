@@ -3,27 +3,21 @@ package com.assessment.zolostays.viewmodel;
 import android.app.Activity;
 import android.content.Context;
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
-import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.EditText;
 
-import com.assessment.zolostays.BR;
-import com.assessment.zolostays.R;
+import com.assessment.zolostays.di.ApplicationContext;
 import com.assessment.zolostays.utils.SimpleTextWatcher;
-import com.assessment.zolostays.utils.Utility;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by DELL on 21-07-2017.
  */
-
+@Singleton
 public class RegistrationViewModel extends BaseObservable{
 
     public Context context;
@@ -32,7 +26,8 @@ public class RegistrationViewModel extends BaseObservable{
     public ObservableField<String> email = new ObservableField<>("");
     public ObservableField<String> password = new ObservableField<>("");
 
-    public RegistrationViewModel(Context context) {
+    @Inject
+    public RegistrationViewModel(@ApplicationContext Context context) {
         this.context = context;
     }
 

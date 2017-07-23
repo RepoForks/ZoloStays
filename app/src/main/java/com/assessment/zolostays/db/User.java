@@ -1,4 +1,4 @@
-package com.assessment.zolostays.db.model;
+package com.assessment.zolostays.db;
 
 import org.greenrobot.greendao.annotation.*;
 
@@ -15,6 +15,8 @@ public class User {
 
     @Id(autoincrement = true)
     private Long id;
+
+    @Unique
     private long user_id;
 
     @NotNull

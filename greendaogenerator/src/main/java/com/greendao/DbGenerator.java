@@ -28,7 +28,7 @@ public class DbGenerator {
     private static Entity addUserEntities(final Schema schema){
         Entity user = schema.addEntity("User");
         user.addIdProperty().primaryKey().autoincrement();
-        user.addLongProperty("user_id").notNull();
+        user.addLongProperty("user_id").notNull().unique();
         user.addStringProperty("name").notNull();
         user.addStringProperty("email").notNull().unique();
         user.addStringProperty("phone").notNull().unique();

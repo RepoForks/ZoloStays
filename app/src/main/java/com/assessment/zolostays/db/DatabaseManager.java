@@ -1,20 +1,23 @@
 package com.assessment.zolostays.db;
 
 import com.assessment.zolostays.AppController;
-import com.assessment.zolostays.db.model.User;
 
 import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by DELL on 21-07-2017.
  */
-
+@Singleton
 public class DatabaseManager {
 
     public UserDao userDao;
 
-    public DatabaseManager(){
-        userDao = AppController.getInstance().getDaoSession().getUserDao();
+    @Inject
+    public DatabaseManager(AppController controller){
+        userDao = controller.getDaoSession().getUserDao();
     }
 
     public String saveUser(User user){

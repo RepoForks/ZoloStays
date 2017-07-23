@@ -10,21 +10,27 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.assessment.zolostays.BR;
+import com.assessment.zolostays.di.ApplicationContext;
 import com.assessment.zolostays.utils.SimpleTextWatcher;
 import com.assessment.zolostays.view.ForgotPasswordActivity;
 import com.assessment.zolostays.view.RegisterActivity;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
 /**
  * Created by DELL on 20-07-2017.
  */
-
+@Singleton
 public class LoginViewModel extends BaseObservable {
 
     public Context context;
     public ObservableField<String> phone = new ObservableField<>("");
     public ObservableField<String> password = new ObservableField<>("");
     public boolean loginButtonEnabled = false;
-    public LoginViewModel(Context context) {
+
+    @Inject
+    public LoginViewModel(@ApplicationContext Context context) {
         this.context = context;
     }
 

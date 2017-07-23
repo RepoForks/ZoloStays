@@ -6,19 +6,24 @@ import android.databinding.Bindable;
 import android.databinding.ObservableField;
 
 import com.assessment.zolostays.BR;
-import com.assessment.zolostays.db.model.User;
+import com.assessment.zolostays.db.User;
+import com.assessment.zolostays.di.ApplicationContext;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by DELL on 22-07-2017.
  */
-
+@Singleton
 public class MainViewModel extends BaseObservable {
 
     public Context context;
 
     public ObservableField<User> user = new ObservableField<>();
 
-    public MainViewModel(Context context, User user) {
+    @Inject
+    public MainViewModel(@ApplicationContext Context context, User user) {
         this.context = context;
         this.user = new ObservableField<>(user);
     }

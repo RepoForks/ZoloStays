@@ -2,14 +2,16 @@ package com.assessment.zolostays.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
-import com.assessment.zolostays.db.model.User;
+import com.assessment.zolostays.db.User;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 /**
  * Created by DELL on 22-07-2017.
  */
-
+@Singleton
 public class PrefUtils {
 
     public static final String ISLOGIN = "isLogin";
@@ -25,11 +27,14 @@ public class PrefUtils {
     public SharedPreferences preferences;
     public SharedPreferences.Editor editor;
 
+    public User user;
+
     public Context context;
 
-    public PrefUtils(Context context) {
+    @Inject
+    public PrefUtils(Context context, SharedPreferences preferences) {
         this.context = context;
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        this.preferences = preferences;
         editor = preferences.edit();
     }
 
@@ -56,7 +61,7 @@ public class PrefUtils {
     }
 
     public User getCurrentUser(){
-        User user = new User();
+        user = new User();
         user.setUser_id(preferences.getLong(ID, 0));
         user.setName(preferences.getString(NAME, null));
         user.setEmail(preferences.getString(EMAIL, null));
