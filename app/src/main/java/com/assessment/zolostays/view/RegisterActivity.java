@@ -16,8 +16,11 @@ import com.assessment.zolostays.R;
 import com.assessment.zolostays.databinding.ActivityRegisterBinding;
 import com.assessment.zolostays.db.DatabaseManager;
 import com.assessment.zolostays.db.User;
+import com.assessment.zolostays.di.component.ActivityComponent;
 import com.assessment.zolostays.di.component.ApplicationComponent;
+import com.assessment.zolostays.di.component.DaggerActivityComponent;
 import com.assessment.zolostays.di.component.DaggerApplicationComponent;
+import com.assessment.zolostays.di.module.ActivityModule;
 import com.assessment.zolostays.di.module.ApplicationModule;
 import com.assessment.zolostays.utils.Utility;
 import com.assessment.zolostays.viewmodel.RegistrationViewModel;
@@ -41,18 +44,34 @@ public class RegisterActivity extends AppCompatActivity{
         }
         return applicationComponent;
     }
+
+    ActivityComponent activityComponent;
+
+    public ActivityComponent getComponent(){
+        if (activityComponent == null){
+            activityComponent = DaggerActivityComponent
+                    .builder()
+                    .activityModule(new ActivityModule(this))
+                    .applicationComponent(AppController.get(this).getComponent())
+                    .build();
+        }
+        return activityComponent;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        activityComponent = getComponent();
+        applicationComponent = getApplicationComponent();
         final ActivityRegisterBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_register);
-        RegistrationViewModel model = new RegistrationViewModel(this);
+        RegistrationViewModel model = activityComponent.getRegistrationViewModel();
         final Validator validator = new Validator(binding);
         binding.setRegister(model);
         if(Build.VERSION.SDK_INT >= 21){
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
         changeStatusBarColor();
-        databaseManager = getApplicationComponent().getDatabaseManager();
+        databaseManager = applicationComponent.getDatabaseManager();
         binding.buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,8 +91,9 @@ public class RegisterActivity extends AppCompatActivity{
                                 Intent intent = new Intent(RegisterActivity.this,  LoginActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(intent);
+                                overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                             }
-                        }, 1700);
+                        }, 1600);
                     }
                 }
                 else{

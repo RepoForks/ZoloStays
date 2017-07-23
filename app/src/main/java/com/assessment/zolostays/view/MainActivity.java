@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
     PrefUtils utils;
     @Inject
     DatabaseManager manager;
+    @Inject
+    MainViewModel viewModel;
 
     User u;
 
@@ -72,10 +74,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        utils = getComponent().getPrefUtils();
+        activityComponent = getComponent();
+        applicationComponent = getApplicationComponent();
+        utils = activityComponent.getPrefUtils();
         final User user = utils.getCurrentUser();
-        manager = getApplicationComponent().getDatabaseManager();
-        MainViewModel viewModel = new MainViewModel(this, user);
+        manager = applicationComponent.getDatabaseManager();
+        viewModel = activityComponent.getMainViewModel();
         final Validator validator = new Validator(binding);
         binding.setModel(viewModel);
         if(Build.VERSION.SDK_INT >= 21){
@@ -146,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
         startActivity(intent);
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private void changeStatusBarColor() {

@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.assessment.zolostays.AppController;
+import com.assessment.zolostays.db.User;
 import com.assessment.zolostays.utils.PrefUtils;
+import com.assessment.zolostays.viewmodel.LoginViewModel;
+import com.assessment.zolostays.viewmodel.MainViewModel;
+import com.assessment.zolostays.viewmodel.RegistrationViewModel;
 
 import javax.inject.Singleton;
 
@@ -29,7 +33,6 @@ public class ActivityModule {
         return mActivity;
     }
 
-    @Provides
     SharedPreferences provideSharedPreferences(){
         return mActivity.getSharedPreferences("zolostays", Context.MODE_PRIVATE);
     }
@@ -42,5 +45,20 @@ public class ActivityModule {
     @Provides
     AppController getAppController(){
         return AppController.get(mActivity);
+    }
+
+    @Provides
+    MainViewModel getMainViewModel(){
+        return new MainViewModel(mActivity, getPrefUtils().getCurrentUser());
+    }
+
+    @Provides
+    RegistrationViewModel getRegistrationViewModel(){
+        return new RegistrationViewModel(mActivity);
+    }
+
+    @Provides
+    LoginViewModel getLoginViewModel(){
+        return new LoginViewModel(mActivity);
     }
 }

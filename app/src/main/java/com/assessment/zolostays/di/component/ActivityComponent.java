@@ -8,6 +8,9 @@ import com.assessment.zolostays.AppController;
 import com.assessment.zolostays.di.PerActivity;
 import com.assessment.zolostays.di.module.ActivityModule;
 import com.assessment.zolostays.utils.PrefUtils;
+import com.assessment.zolostays.viewmodel.LoginViewModel;
+import com.assessment.zolostays.viewmodel.MainViewModel;
+import com.assessment.zolostays.viewmodel.RegistrationViewModel;
 
 import dagger.Component;
 
@@ -26,5 +29,9 @@ public interface ActivityComponent {
 
     AppController getAppController();
 
-    SharedPreferences provideSharedPreferences();
+    MainViewModel getMainViewModel();
+
+    RegistrationViewModel getRegistrationViewModel();
+
+    LoginViewModel getLoginViewModel();
 }

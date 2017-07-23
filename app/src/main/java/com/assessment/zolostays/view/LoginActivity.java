@@ -29,10 +29,13 @@ import javax.inject.Inject;
 import br.com.ilhasoft.support.validation.Validator;
 
 public class LoginActivity extends AppCompatActivity {
+
     @Inject
     public PrefUtils prefUtils;
     @Inject
     public DatabaseManager databaseManager;
+    @Inject
+    LoginViewModel model;
 
     ActivityComponent activityComponent;
 
@@ -62,15 +65,18 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        prefUtils = getComponent().getPrefUtils();
+        activityComponent = getComponent();
+        applicationComponent = getApplicationComponent();
+        prefUtils = activityComponent.getPrefUtils();
         if (prefUtils.isLogin()){
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
             startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
         final ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        LoginViewModel model = new LoginViewModel(this);
+        model = activityComponent.getLoginViewModel();
         final Validator validator = new Validator(binding);
         binding.setUvm(model);
         if(Build.VERSION.SDK_INT >= 21){
@@ -90,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         intent.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
                         startActivity(intent);
+                        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                     }
                     else{
                         Utility.showSnackBar(LoginActivity.this, view.getRootView(), "Invalid login details");

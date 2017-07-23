@@ -20,6 +20,8 @@ public class AppController extends Application {
 
     public DaoSession daoSession;
 
+    public static AppController instance;
+
     public static AppController get(Context context){
         return (AppController) context.getApplicationContext();
     }
@@ -29,6 +31,7 @@ public class AppController extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, AppConstants.DATABASE_NAME);
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
@@ -45,5 +48,9 @@ public class AppController extends Application {
 
     public DaoSession getDaoSession(){
         return daoSession;
+    }
+
+    public static AppController getAppController(){
+        return AppController.instance;
     }
 }

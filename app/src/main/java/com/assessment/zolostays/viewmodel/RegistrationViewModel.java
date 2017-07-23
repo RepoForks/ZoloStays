@@ -40,6 +40,9 @@ public class RegistrationViewModel extends BaseObservable{
         };
     }
 
+
+    // TextWatchers required for local validation, but due to Validator library
+    // validation has been shifted to individual views
     public TextWatcher getPhoneNumberWatcher(){
         return new SimpleTextWatcher() {
             @Override
